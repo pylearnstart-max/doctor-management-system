@@ -1,10 +1,6 @@
 
-
-
 from flask import Flask, request, jsonify
-
 from service import DoctorService
-
 
 app = Flask(__name__)
 
@@ -20,7 +16,6 @@ def get_all_doctors():
     result = []
 
     for doctor in doctors:
-
         result.append({
             "id": doctor[0],
             "name": doctor[1],
@@ -49,7 +44,7 @@ def get_doctor_by_id(doctor_id):
     }), 200
 
 
-# 3. INSERT DOCTOR
+# 3. ADD DOCTOR
 @app.route("/doctors", methods=["POST"])
 def add_doctor():
 
@@ -106,9 +101,7 @@ def update_doctor(doctor_id):
         }), 400
 
     result = doctor_service.update_doctor(
-        doctor_id,
-        name,
-        disease
+        doctor_id, name, disease
     )
 
     if result:
@@ -143,7 +136,4 @@ def delete_doctor(doctor_id):
 
 # RUN APPLICATION
 if __name__ == "__main__":
-
     app.run(debug=True)
-
-

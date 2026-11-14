@@ -45,8 +45,7 @@ class DoctorRepository:
                 "SELECT DoctorID, Name, Disease FROM Doctor"
             )
 
-            rows = cursor.fetchall()
-            return rows
+            return cursor.fetchall()
 
         except Exception as e:
             print("Get Error:", e)
@@ -55,7 +54,32 @@ class DoctorRepository:
         finally:
             con.close()
 
-    # 3. UPDATE DOCTOR
+    # 3. GET DOCTOR BY ID
+    def get_doctor_by_id(self, doctor_id):
+
+        con = get_connection()
+
+        if con is None:
+            return None
+
+        try:
+            cursor = con.cursor()
+
+            cursor.execute(
+                "SELECT DoctorID, Name, Disease FROM Doctor WHERE DoctorID = ?",
+                (doctor_id,)
+            )
+
+            return cursor.fetchone()
+
+        except Exception as e:
+            print("Get Doctor Error:", e)
+            return None
+
+        finally:
+            con.close()
+
+    # 4. UPDATE DOCTOR
     def update_doctor(self, doctor_id, name, disease):
 
         con = get_connection()
@@ -81,7 +105,7 @@ class DoctorRepository:
         finally:
             con.close()
 
-    # 4. DELETE DOCTOR
+    # 5. DELETE DOCTOR
     def delete_doctor(self, doctor_id):
 
         con = get_connection()

@@ -1,9 +1,8 @@
 
 class Doctor:
 
-    def __init__(self, doctor_id, name, specialization, phone):
+    def __init__(self, doctor_id, name, disease):
 
         self.doctor_id = doctor_id
         self.name = name
-        self.specialization = specialization
-        self.phone = phone
+        self.disease = disease
