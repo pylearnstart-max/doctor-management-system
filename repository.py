@@ -130,3 +130,79 @@ class DoctorRepository:
 
         finally:
             con.close()
+
+    # 6. SEARCH DOCTOR BY NAME
+    def search_doctor_by_name(self, name):
+
+        con = get_connection()
+
+        if con is None:
+            return []
+
+        try:
+            cursor = con.cursor()
+
+            cursor.execute(
+                "SELECT DoctorID, Name, Disease FROM Doctor WHERE Name LIKE ?",
+                (f"%{name}%",)
+            )
+
+            return cursor.fetchall()
+
+        except Exception as e:
+            print("Search Name Error:", e)
+            return []
+
+        finally:
+            con.close()
+
+    # 7. SEARCH DOCTOR BY DISEASE
+    def search_doctor_by_disease(self, disease):
+
+        con = get_connection()
+
+        if con is None:
+            return []
+
+        try:
+            cursor = con.cursor()
+
+            cursor.execute(
+                "SELECT DoctorID, Name, Disease FROM Doctor WHERE Disease LIKE ?",
+                (f"%{disease}%",)
+            )
+
+            return cursor.fetchall()
+
+        except Exception as e:
+            print("Search Disease Error:", e)
+            return []
+
+        finally:
+            con.close()
+
+    # 8. GET TOTAL DOCTOR COUNT
+    def get_doctor_count(self):
+
+        con = get_connection()
+
+        if con is None:
+            return 0
+
+        try:
+            cursor = con.cursor()
+
+            cursor.execute(
+                "SELECT COUNT(*) FROM Doctor"
+            )
+
+            result = cursor.fetchone()
+
+            return result[0]
+
+        except Exception as e:
+            print("Count Error:", e)
+            return 0
+
+        finally:
+            con.close()
